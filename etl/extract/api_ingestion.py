@@ -1,13 +1,19 @@
 import requests
 import pandas as pd
 
+
 def fetch_api_data(url):
+    """
+    Fetch JSON data from API and convert to DataFrame
+    """
 
     response = requests.get(url)
 
     if response.status_code != 200:
-        raise Exception("API request failed")
+        raise Exception(f"API request failed: {response.status_code}")
 
     data = response.json()
 
-    return pd.DataFrame(data)
+    df = pd.DataFrame(data)
+
+    return df

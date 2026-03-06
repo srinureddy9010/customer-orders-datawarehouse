@@ -1,0 +1,9 @@
+# how to run 
+create the virtual environment
+python -m venv venv # use this command 
+.\venv\Scripts\Activate.ps1 # use this for acativation
+You should see this in your terminal:
+(venv) PS C:\Users\srinu\customer-orders-datawarehouse>
+pip install -r requirements.txt# use this to install
+to run the pipe line 
+python app\main_pipeline.py 
