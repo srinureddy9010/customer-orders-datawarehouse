@@ -1,20 +1,18 @@
-
 # Customer Orders Data Warehouse
 
 ## Project Overview
 
-This project builds a **Mini Data Warehouse Pipeline** that processes customer orders data using **batch processing** and implements **Slowly Changing Dimensions (SCD1, SCD2, SCD3)**.
+This project implements a **Mini Data Warehouse Pipeline** that processes customer orders data using **batch processing** and implements **Slowly Changing Dimensions (SCD1, SCD2, SCD3)**.
 
 The pipeline ingests data from **multiple APIs**, performs **data quality checks**, applies **dimension transformations**, and generates **fact and dimension tables** for analytics.
 
-The project simulates a **real-world data engineering workflow** including:
+This project demonstrates common **data engineering practices** including:
 
 * API Data Ingestion
 * Data Quality Validation
-* Slowly Changing Dimensions
+* Slowly Changing Dimensions (SCD1, SCD2, SCD3)
 * Incremental Batch Processing
 * Data Warehouse Modeling
-
 
 ---
 
@@ -58,11 +56,12 @@ The project simulates a **real-world data engineering workflow** including:
 
 | Component       | Technology            |
 | --------------- | --------------------- |
-| Language        | Python / Scala        |
-| Data Processing | Pandas / Apache Spark |
-| Build Tool      | SBT                   |
+| Language        | Python                |
+| Data Processing | Pandas                |
+| API Integration | Requests              |
 | Data Storage    | CSV (Warehouse Layer) |
-| API Integration | Requests Library      |
+| Version Control | Git                   |
+| Repository      | GitHub                |
 
 ---
 
@@ -72,15 +71,11 @@ The project simulates a **real-world data engineering workflow** including:
 customer-orders-datawarehouse
 │
 ├── app
-│   └── main_pipeline.py
+│   └── main_pipeline_pandas.py
 │
 ├── etl
-│   ├── extract
-│   │   └── api_ingestion.py
-│   │
-│   ├── transform
-│   │
-│   └── load
+│   └── extract
+│       └── api_ingestion.py
 │
 ├── shared
 │   └── data_quality.py
@@ -91,12 +86,7 @@ customer-orders-datawarehouse
 │   ├── dim_payment.csv
 │   └── fact_orders.csv
 │
-├── src/main/scala
-│   └── com/datawarehouse/orders/app/MainApp.scala
-│
-├── build.sbt
 ├── requirements.txt
-├── run_pipeline.sh
 └── README.md
 ```
 
@@ -104,26 +94,28 @@ customer-orders-datawarehouse
 
 # Data Sources (API Ingestion)
 
-The pipeline ingests JSON data from the following APIs:
+The pipeline extracts JSON data from the following APIs:
 
 | Dataset   | API                                        |
 | --------- | ------------------------------------------ |
 | Customers | https://jsonplaceholder.typicode.com/users |
 | Products  | https://dummyjson.com/products             |
 | Orders    | https://dummyjson.com/carts                |
-| Payments  | Simulated Payment API                      |
+| Payments  | Simulated payment dataset                  |
 
 ---
 
 # Data Quality Checks
 
-The pipeline validates:
+The pipeline validates the datasets before transformation.
 
-* Missing values
-* Empty datasets
-* Schema consistency
+Checks include:
 
-Example validation:
+* Empty dataset validation
+* Null value detection
+* Basic schema validation
+
+Example output:
 
 ```
 Customers validation passed
@@ -138,7 +130,7 @@ Orders validation passed
 
 ## SCD1 – Product Dimension
 
-Only the **latest product price** is stored.
+Stores **only the latest product price**.
 
 ```
 dim_product
@@ -153,7 +145,7 @@ Old values are overwritten.
 
 ## SCD2 – Customer Dimension
 
-Customer address changes are **tracked historically**.
+Tracks **historical address changes** for customers.
 
 ```
 dim_customer
@@ -189,6 +181,8 @@ previous_method
 
 # Fact Table
 
+The fact table stores **transaction-level order data**.
+
 ```
 fact_orders
 order_id
@@ -198,21 +192,21 @@ payment_id
 amount
 ```
 
-This table stores **transaction-level data**.
+This table connects all dimension tables for analytics.
 
 ---
 
 # Incremental Batch Processing
 
-The pipeline implements **incremental loads**.
+The pipeline supports **incremental loading**.
 
 Each run:
 
 ```
-Existing warehouse
-      +
+Existing warehouse data
+        +
 New API records
-      =
+        =
 Updated warehouse tables
 ```
 
@@ -238,6 +232,8 @@ python app/main_pipeline_pandas.py
 
 # Warehouse Output
 
+After running the pipeline, the warehouse folder will contain:
+
 ```
 warehouse
 │
@@ -249,49 +245,20 @@ warehouse
 
 ---
 
-# Build Spark JAR
-
-Using **SBT**
-
-```
-sbt package
-```
-
-Output:
-
-```
-target/scala-2.12/customer-orders-datawarehouse_2.12-1.0.jar
-
-Run Data Pipeline
-Publish Artifacts
-```
-
----
-
 # Test Scenarios
 
-The project includes validation for:
+The pipeline supports validation for:
 
 * Missing values
 * Duplicate records
-* Incremental loads
 * Dimension updates
 * Fact table consistency
 
-Testing framework:
+Testing framework used:
 
 ```
 pytest
 ```
-
----
-
-# Future Improvements
-
-* Delta Lake integration
-* Real-time streaming with Kafka
-* Cloud deployment (AWS / Azure)
-* Data catalog integration
 
 ---
 
