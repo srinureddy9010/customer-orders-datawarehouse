@@ -61,8 +61,6 @@ The project simulates a **real-world data engineering workflow** including:
 | Language        | Python / Scala        |
 | Data Processing | Pandas / Apache Spark |
 | Build Tool      | SBT                   |
-| CI/CD           | Jenkins               |
-| Execution       | Linux Shell           |
 | Data Storage    | CSV (Warehouse Layer) |
 | API Integration | Requests Library      |
 
