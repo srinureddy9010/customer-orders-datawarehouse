@@ -1,4 +1,4 @@
-# customer-orders-datawarehouse
+
 # Customer Orders Data Warehouse
 
 ## Project Overview
@@ -14,9 +14,7 @@ The project simulates a **real-world data engineering workflow** including:
 * Slowly Changing Dimensions
 * Incremental Batch Processing
 * Data Warehouse Modeling
-* Spark JAR Packaging
-* CI/CD using Jenkins
-* Linux Shell Execution
+
 
 ---
 
@@ -76,7 +74,7 @@ The project simulates a **real-world data engineering workflow** including:
 customer-orders-datawarehouse
 │
 ├── app
-│   └── main_pipeline_pandas.py
+│   └── main_pipeline.py
 │
 ├── etl
 │   ├── extract
@@ -265,37 +263,7 @@ Output:
 
 ```
 target/scala-2.12/customer-orders-datawarehouse_2.12-1.0.jar
-```
 
----
-
-# Run Spark Job
-
-```
-spark-submit \
---class com.datawarehouse.orders.app.MainApp \
-target/scala-2.12/customer-orders-datawarehouse_2.12-1.0.jar
-```
-
----
-
-# Linux Execution Script
-
-```
-chmod +x run_pipeline.sh
-./run_pipeline.sh
-```
-
----
-
-# Jenkins CI/CD Pipeline
-
-Stages:
-
-```
-Checkout Code
-Install Dependencies
-Build Spark JAR
 Run Data Pipeline
 Publish Artifacts
 ```
