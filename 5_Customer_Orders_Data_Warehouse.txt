@@ -1,0 +1,28 @@
+Customer Orders Data Warehouse
+Build a mini data warehouse combining all three SCD types with batch processing.
+
+1)Customer data (SCD2 - track address changes over time)
+2)Product prices (SCD1 - keep only current price)
+3)Payment methods (SCD3 - current and previous method)
+4)Ingest from multiple JSON files via API
+5)Handle Missing,Null Values as Data Quality checks
+6)Implement daily incremental loads with Delta merge operations
+7)Scala Package Structure:
+com.datawarehouse.orders
+    ├── domain
+    │   ├── customer (Customer models + SCD2)
+    │   ├── product (Product models + SCD1)
+    │   ├── payment (Payment models + SCD3)
+    │   ├── dimension (all dimension tables)
+    │   └── fact (OrderFact, InventorySnapshot)
+    ├── etl
+    │   ├── extract
+    │   ├── transform
+    │   └── load
+    ├── shared (common utilities)
+    └── app (main application)
+7) Generate Different Test case Scenario, to check validity of methods.
+8) Prepare JAR file for execution
+9)use Jenkins for CI/CD
+10) Use Linux Commands to create shell scripts to execute spark jar file
+                             
