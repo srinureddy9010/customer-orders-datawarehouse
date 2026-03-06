@@ -2,6 +2,12 @@ import pandas as pd
 import json
 from datetime import datetime
 import os
+import sys
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from shared.data_quality import validate_all
 
 print("Starting Data Warehouse Pipeline (Pandas Version)")
 print("=" * 50)
@@ -32,6 +38,18 @@ print(payments.to_string(index=False))
 
 print("\n\nOrders Data")
 print(orders.to_string(index=False))
+
+# ===== DATA QUALITY VALIDATION =====
+data_sources = {
+    'customers': customers,
+    'products': products,
+    'orders': orders,
+    'payments': payments
+}
+
+if not validate_all(data_sources):
+    print("❌ Data quality validation failed. Aborting pipeline.")
+    sys.exit(1)
 
 # SCD2 for customers - Keep history with effective dates
 def apply_scd2(df, target_path):
