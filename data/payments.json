@@ -1,0 +1,4 @@
+[
+ {"payment_id":1,"method":"UPI"},
+ {"payment_id":2,"method":"Credit Card"}
+]
