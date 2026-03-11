@@ -265,5 +265,5 @@ pytest
 # Author
 
 **Pitchala Srinivasa Reddy**
-
+"srinureddy5100@gmail.com"
 Data Engineering Portfolio Project
